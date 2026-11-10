@@ -2,7 +2,7 @@
 
 Este repositorio contiene el código fuente, scripts de automatización y bitácora técnica del proyecto de **Análisis de Riesgo Financiero (CMF Chile)**.
 
-🌐 **[👉 Volver a la Presentación Completa del Proyecto en el Portafolio](https://sites.google.com/view/hector-argomedo-portafolio/inicio)**
+🌐 **[👉 Volver a la Presentación Completa del Proyecto en el Portafolio](https://sites.google.com/view/hector-argomedo-portafolio/en-financial-risk-non-performing-loan-analysis)**
 
 ---
 

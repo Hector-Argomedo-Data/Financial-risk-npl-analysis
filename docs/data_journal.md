@@ -31,8 +31,9 @@ for file_path in glob.glob(
 
   for col in df.select_dtypes(include=["float64", "float32"]).columns:
     df[col] = df[col].round(0)
+    df.to_csv(output_path, index=False, encoding="utf-8")```
 
-  df.to_csv(output_path, index=False, encoding="utf-8")```
+
 
 ## [Phase 3 — Historical Consolidation & Ingestion in BigQuery (SQL)]
 

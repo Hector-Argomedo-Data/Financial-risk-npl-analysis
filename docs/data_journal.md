@@ -8,6 +8,25 @@
 - **[A] Action:** Perform bulk replacement of '---' with `0`, flatten multi-row headers, and inject temporal metadata across all 24 reports.
 - **[R] Result:** 24 individually structured files with native `snake_case` headers, fully prepared for SQL processing and `FLOAT64`/`INT64` data typing.
 
+`UTF-8` encoding:
+
+```python
+import glob
+import os
+import pandas as pd
+
+# Recursive traversal and conversion with precision rounding
+for file_path in glob.glob(
+    os.path.join(source_folder, "**/*.csv"), recursive=True
+):
+  df = pd.read_csv(file_path)
+
+  for col in df.select_dtypes(include=["float64", "float32"]).columns:
+    df[col] = df[col].round(0)
+
+  df.to_csv(output_path, index=False, encoding="utf-8")
+```
+
 ---
 
 ## [Phase 2: Automation Pipeline & Numerical Precision Handling with Python]

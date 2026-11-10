@@ -18,7 +18,7 @@
 - **[A] Action:** Execute recursive directory scanning, apply `.round(0)` to floating-point columns, and export the resulting files using `UTF-8` encoding:
 
 
-```python
+python
 import glob
 import os
 import pandas as pd
@@ -31,7 +31,7 @@ for file_path in glob.glob(
 
   for col in df.select_dtypes(include=["float64", "float32"]).columns:
     df[col] = df[col].round(0)
-    df.to_csv(output_path, index=False, encoding="utf-8")```
+    df.to_csv(output_path, index=False, encoding="utf-8")
 
 
 

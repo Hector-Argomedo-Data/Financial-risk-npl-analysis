@@ -8,6 +8,16 @@
 - **[A] Action:** Perform bulk replacement of '---' with `0`, flatten multi-row headers, and inject temporal metadata across all 24 reports.
 - **[R] Result:** 24 individually structured files with native `snake_case` headers, fully prepared for SQL processing and `FLOAT64`/`INT64` data typing.
 
+---
+
+## [Phase 2: Automation Pipeline & Numerical Precision Handling with Python]
+
+### 1. Bulk Ingestion, CSV Conversion & Numerical Rounding (Python & Pandas)
+- **[P] Problem:** Manually converting 24 files into `.csv` format was excessively time-consuming. Additionally, spreadsheet transformations introduced extensive floating-point decimal values that could not be consistently corrected through visual formatting alone.
+- **[D] Decision:** Develop an automated Python script in Google Colab using `pandas` and `glob` (for recursive directory traversal) to convert files into `.csv` format and enforce integer rounding on numerical values.
+- **[A] Action:** Execute recursive directory scanning, apply `.round(0)` to floating-point columns, and export the resulting files using 
+
+
 `UTF-8` encoding:
 
 ```python
@@ -27,14 +37,7 @@ for file_path in glob.glob(
   df.to_csv(output_path, index=False, encoding="utf-8")
 ```
 
----
 
-## [Phase 2: Automation Pipeline & Numerical Precision Handling with Python]
-
-### 1. Bulk Ingestion, CSV Conversion & Numerical Rounding (Python & Pandas)
-- **[P] Problem:** Manually converting 24 files into `.csv` format was excessively time-consuming. Additionally, spreadsheet transformations introduced extensive floating-point decimal values that could not be consistently corrected through visual formatting alone.
-- **[D] Decision:** Develop an automated Python script in Google Colab using `pandas` and `glob` (for recursive directory traversal) to convert files into `.csv` format and enforce integer rounding on numerical values.
-- **[A] Action:** Execute recursive directory scanning, apply `.round(0)` to floating-point columns, and export the resulting files using 
 
 ## [Phase 3 — Historical Consolidation & Ingestion in BigQuery (SQL)]
 

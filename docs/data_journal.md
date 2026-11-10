@@ -33,6 +33,8 @@ for file_path in glob.glob(
 
   df.to_csv(output_path, index=False, encoding="utf-8")
 
+---
+
 ## [Phase: 03 — Historical Consolidation & Ingestion in BigQuery (SQL)]
 
 - **[P] Problem:** Data fragmentation across 24 independent files (12 loan portfolios and 12 assets), preventing cross-sectional analytical queries and overloading local processing.

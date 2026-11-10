@@ -33,4 +33,22 @@ for file_path in glob.glob(
 
   df.to_csv(output_path, index=False, encoding="utf-8")
 
+## [Phase: 03 — Historical Consolidation & Ingestion in BigQuery (SQL)]
+
+- **[P] Problem:** Data fragmentation across 24 independent files (12 loan portfolios and 12 assets), preventing cross-sectional analytical queries and overloading local processing.
+- **[D] Decision:** Centralize storage in Google BigQuery to leverage a scalable Data Warehouse environment and utilize SQL (`UNION ALL` and DDL statements) to unify monthly reports into two large historical master tables (`historical_loans` and `historical_assets`).
+- **[A] Action:** Creation of the BigQuery dataset, uploading preprocessed CSV files, executing SQL scripts for table union, and proper schema definition through explicit data casting (`CAST` to `FLOAT64` and `INT64`) and date parsing.
+- **[R] Result:** Two consolidated, cloud-optimized historical tables providing complete traceability across the 12 analyzed months, ready to be consumed directly by Power BI while reducing query response times to milliseconds.
+
+---
+
+## [Phase: 04 — Dashboard Design & Executive UI in Power BI]
+
+- **[P] Problem:** Risk of falling into "Scale Blindness" when comparing institutions with drastically disparate asset volumes, combined with the inability to simultaneously filter two independent fact tables (`historical_loans` and `historical_assets`).
+- **[D] Decision:** Adopt a Star Schema data model architecture using a bridge dimension table (`Dim_Bank`) and design a grid layout interface combining absolute volume metrics with relative ratios.
+- **[A] Action:** Construction of the `Dim_Bank` dimensional table via DAX with 1:* relationships to both fact tables, development of dynamic conditional titles (`Executive_Sheet_Title`), and layout structuring of KPI cards and charts following the "F"-pattern visual flow.
+- **[R] Result:** An interactive executive dashboard allowing fluid switching between the global system summary and individual bank sheets, synchronizing real-time filters and revealing actual capital at risk alongside delinquency and provision coverage percentages.
+
+**Key Learning:** A low delinquency percentage in a massive bank represents a significantly higher absolute volume of money at risk than a high percentage in a small institution. Absolute monetary volume must always accompany the relative percentage ratio.
+
 

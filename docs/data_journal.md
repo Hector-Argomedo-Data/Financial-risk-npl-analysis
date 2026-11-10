@@ -15,26 +15,7 @@
 ### 1. Bulk Ingestion, CSV Conversion & Numerical Rounding (Python & Pandas)
 - **[P] Problem:** Manually converting 24 files into `.csv` format was excessively time-consuming. Additionally, spreadsheet transformations introduced extensive floating-point decimal values that could not be consistently corrected through visual formatting alone.
 - **[D] Decision:** Develop an automated Python script in Google Colab using `pandas` and `glob` (for recursive directory traversal) to convert files into `.csv` format and enforce integer rounding on numerical values.
-- **[A] Action:** Execute recursive directory scanning, apply `.round(0)` to floating-point columns, and export the resulting files using `UTF-8` encoding:
-
-```python
-import glob
-import os
-import pandas as pd
-
-# Recursive traversal and conversion with precision rounding
-for file_path in glob.glob(
-    os.path.join(source_folder, "**/*.csv"), recursive=True
-):
-  df = pd.read_csv(file_path)
-
-  for col in df.select_dtypes(include=["float64", "float32"]).columns:
-    df[col] = df[col].round(0)
-
-  df.to_csv(output_path, index=False, encoding="utf-8")
-```
-
----
+- **[A] Action:** Execute recursive directory scanning, apply `.round(0)` to floating-point columns, and export the resulting files using 
 
 ## [Phase 3 — Historical Consolidation & Ingestion in BigQuery (SQL)]
 

@@ -18,7 +18,21 @@
 - **[A] Action:** Execute recursive directory scanning, apply `.round(0)` to floating-point columns, and export the resulting files using `UTF-8` encoding:
 
 
+```python
+import glob
+import os
+import pandas as pd
 
+# Recursive traversal and conversion with precision rounding
+for file_path in glob.glob(
+    os.path.join(source_folder, "**/*.csv"), recursive=True
+):
+  df = pd.read_csv(file_path)
+
+  for col in df.select_dtypes(include=["float64", "float32"]).columns:
+    df[col] = df[col].round(0)
+
+  df.to_csv(output_path, index=False, encoding="utf-8")```
 
 ## [Phase 3 — Historical Consolidation & Ingestion in BigQuery (SQL)]
 
